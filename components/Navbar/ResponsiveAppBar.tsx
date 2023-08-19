@@ -14,7 +14,7 @@ import Drawer from "../drawer/Drawers";
 
 import LogoShopView from "../drawer/LogoShopView";
 import ListPages from "./ListPages";
-import { useTheme } from "@mui/material/styles";
+
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ProductSelect from "../ProductSelect/ProductSelect";
@@ -35,8 +35,6 @@ function ResponsiveAppBar() {
   const { user, setUser } = useContext(ProductsContexts);
   const { data: session, status } = useSession();
   const navigate = useRouter();
-
-  const theme = useTheme();
 
   const ShowMenu = (
     <Box
