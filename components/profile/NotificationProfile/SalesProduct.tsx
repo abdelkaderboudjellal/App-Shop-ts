@@ -28,7 +28,7 @@ export default function Sales({ products }: Props) {
           if (product.valid === true) {
             return (
               <Card key={product.id}>
-                <CardContent sx={{ m: 0, p: 0 }}>
+                <CardContent sx={{ m: 0, p: 2 }}>
                   <Image
                     src={product.thumbnail}
                     width={300}
