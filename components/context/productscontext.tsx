@@ -1,5 +1,5 @@
 "use client";
-import { Product, ProductSelect, ChipData } from "@/types/types";
+import { Product, ProductSelect, ChipData, Users } from "@/types/types";
 import {
   createContext,
   ReactNode,
@@ -7,7 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useLocalStorage } from "../hooks/useLocalStorage"
+import { useLocalStorage } from "../hooks/useLocalStorage";
 type ShoppingCartProviderProps = {
   children: ReactNode;
 };
@@ -15,7 +15,7 @@ type Anchor = "top" | "left" | "bottom" | "right";
 interface AppState {
   product: Product[];
   searchTerm: string;
-  chipData:  readonly ChipData[];
+  chipData: readonly ChipData[];
   /*  category:  string[]; */
   result: string[];
   valueSearch: number[];
@@ -28,6 +28,8 @@ interface AppState {
     right: boolean;
   };
   searchName: string;
+
+  user: string;
 }
 interface AppContext extends AppState {
   addProduct: (id: number, number?: number) => void;
@@ -45,24 +47,31 @@ interface AppContext extends AppState {
   setSearchName: (searchName: string) => void;
   setSearchTerm: (searchTerm: string) => void;
   setValueSearch: (valueSearch: number[]) => void;
+  setUser: (user: React.SetStateAction<string>) => void;
 }
 
 export const ProductsContexts = createContext({} as AppContext);
-
 
 let result: string[] = ["All product"];
 
 function ProductsProvider({ children }: ShoppingCartProviderProps) {
   const [product, setProduct] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [chipData, setChipData] =
-    useLocalStorage<readonly ChipData[]>("ArrayShipSearch",[]);
+  const [chipData, setChipData] = useLocalStorage<readonly ChipData[]>(
+    "ArrayShipSearch",
+    []
+  );
   const category: (number | string[])[] = product.map((item) => {
     return result.includes(item.category) ? result : result.push(item.category);
   });
   const [valueSearch, setValueSearch] = useState([0, 2000]);
-  const [dataSelect, setDataSelect] = useLocalStorage<ProductSelect[]>("shopping-cart",[]);
+  const [dataSelect, setDataSelect] = useLocalStorage<ProductSelect[]>(
+    "shopping-cart",
+    []
+  );
   const [searchName, setSearchName] = useState("");
+
+  const [user, setUser] = useLocalStorage<string>("user", "");
   const fetchUserData = () => {
     fetch(`https://products-jtax.onrender.com/products`)
       .then((response) => {
@@ -76,9 +85,10 @@ function ProductsProvider({ children }: ShoppingCartProviderProps) {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   useEffect(() => {
     fetchUserData();
+    localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("shopping-cart", JSON.stringify(dataSelect));
     localStorage.setItem("ArrayShipSearch", JSON.stringify(chipData));
-  }, [dataSelect, chipData]);
+  }, [dataSelect, chipData, user]);
 
   //------------- add product  from card -------
   const addProduct = (id: number, number: number = 1) => {
@@ -198,6 +208,9 @@ function ProductsProvider({ children }: ShoppingCartProviderProps) {
         setSearchTerm,
         valueSearch,
         setValueSearch,
+
+        setUser,
+        user,
       }}
     >
       {children}

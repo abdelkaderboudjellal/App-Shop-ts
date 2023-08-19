@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Container,
+  Grid,
   Stack,
   TextField,
   Typography,
@@ -22,9 +23,22 @@ import { useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import LaodingPreviewProduct from "../Laoding/LaodingPreviewProduct";
-
+import {
+  Magnifier,
+  GlassMagnifier,
+  SideBySideMagnifier,
+  PictureInPictureMagnifier,
+  MOUSE_ACTIVATION,
+  TOUCH_ACTIVATION,
+  MagnifierContainer,
+  MagnifierZoom,
+  MagnifierPreview,
+} from "react-image-magnifiers";
+import ReactImageMagnify from "react-image-magnify";
 import { Product } from "@/types/types";
 import { ProductsContexts } from "@/components/context/productscontext";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
@@ -35,32 +49,26 @@ type Props = {
   param: string;
 };
 
-
 const PreviewProduct = ({ param }: Props) => {
   const { addProduct } = useContext(ProductsContexts);
-
+  const navigate = useRouter();
   const [image, setImage] = useState<string[]>();
   const [value, setValue] = useState<number>(0);
   const [productPreview, setProductPreview] = useState<Product | undefined>();
 
   useEffect(() => {
-    const getData = async () =>{
-
-      const res =  await fetch(`https://products-jtax.onrender.com/products/${param}`,
-      {
-        next:{
-          revalidate:60
-        }
-      })
-      const data = await res.json()
+    const getData = async () => {
+      const res = await fetch(
+        `https://products-jtax.onrender.com/products/${param}`
+      );
+      const data = await res.json();
       setProductPreview(data);
       setImage([data.thumbnail]);
       if (data.images.length > 0) {
         setImage([...data.images]);
       }
-    }
-    getData()
-  
+    };
+    getData();
   }, []);
 
   const handlChange = (event: any) => {
@@ -91,6 +99,7 @@ const PreviewProduct = ({ param }: Props) => {
     <>
       {productPreview && (
         <Container
+          maxWidth="lg"
           sx={{
             display: "grid",
             gridTemplateColumns: { md: "repeat(2,1fr)" },
@@ -98,7 +107,7 @@ const PreviewProduct = ({ param }: Props) => {
             gap: 3,
           }}
         >
-          <Stack sx={{ mb: { sm: 10 } }}>
+          <Grid sx={{ mb: { sm: 10 } }}>
             <Box
               sx={{
                 mb: { sm: 10 },
@@ -119,13 +128,23 @@ const PreviewProduct = ({ param }: Props) => {
                 className="Carousel"
               >
                 {image?.map((img) => (
-                  <img key={img} src={img} alt={img} />
+                  <>
+                    <GlassMagnifier
+                      imageSrc={img}
+                      imageAlt="Example"
+                      magnifierSize={"60%"}
+                      className="GlassMagnifier"
+                      largeImageSrc={img}
+                    />
+
+                    {img.length > 0 && <img key={img} src={img} alt={img} />}
+                  </>
                 ))}
               </Carousel>
             </Box>
-          </Stack>
+          </Grid>
 
-          <Stack>
+          <Stack width={"80%"}>
             <Stack
               width={"100%"}
               spacing={2}
@@ -139,9 +158,16 @@ const PreviewProduct = ({ param }: Props) => {
               >
                 {productPreview.title}
               </Typography>
-              <Typography variant="body1" component="h1">
+              <Typography variant="subtitle1" component="p">
                 $ {productPreview.price}
               </Typography>
+
+              <Button
+                component={Link}
+                href={`/account/${productPreview.seller?.split("@")[0]}`}
+              >
+                {productPreview.seller?.split("@")[0]}
+              </Button>
               <Typography variant="body1" component="h1">
                 {productPreview.category} / {productPreview.brand}
               </Typography>
@@ -157,21 +183,34 @@ const PreviewProduct = ({ param }: Props) => {
                   sx={{ width: 1 }}
                   onChange={handlChange}
                 />
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="primary"
-                  sx={{ color: "white" }}
-                  fullWidth
-                  onClick={() => {
-                    if (value > 0) {
-                      addProduct(productPreview.id, value);
-                      setOpen(true);
-                    }
-                  }}
-                >
-                  Add to cart
-                </Button>
+                {productPreview.available ? (
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="primary"
+                    sx={{ color: "white" }}
+                    fullWidth
+                    onClick={() => {
+                      if (value > 0) {
+                        addProduct(productPreview.id, value);
+                        setOpen(true);
+                      }
+                    }}
+                  >
+                    Add to cart
+                  </Button>
+                ) : (
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="error"
+                    sx={{ color: "white" }}
+                    fullWidth
+                  >
+                    Product not available
+                  </Button>
+                )}
+
                 <Snackbar
                   open={open}
                   autoHideDuration={6000}

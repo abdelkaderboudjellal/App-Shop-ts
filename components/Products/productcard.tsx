@@ -11,12 +11,14 @@ import { useRouter } from "next/navigation";
 import { ProductsContexts } from "../context/productscontext";
 
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 type Props = {
   item: Product;
 };
 const ProductCard = ({ item }: Props) => {
   const { addProduct } = useContext(ProductsContexts);
+  const { data: session, status } = useSession();
   const navigate = useRouter();
   return (
     <Card>
@@ -33,9 +35,7 @@ const ProductCard = ({ item }: Props) => {
           <Typography
             sx={{
               fontWeight: "700",
-              letterSpacing: 2,
-              textAlign: "center",
-              textWrap: "balance",
+
               height: 50,
             }}
             variant="body1"
@@ -44,8 +44,8 @@ const ProductCard = ({ item }: Props) => {
             {item.title}
           </Typography>
           <Typography
-            sx={{ fontWeight: 500, fontFamily: "Cairo" }}
-            variant="body1"
+            sx={{ fontWeight: 500 }}
+            variant="subtitle1"
             component="p"
           >
             ${item.price}
@@ -53,20 +53,36 @@ const ProductCard = ({ item }: Props) => {
         </Stack>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+        {session?.user?.email === item.seller && item.seller != undefined ? (
+          <Button
+            size="small"
+            variant="contained"
+            color="success"
+            sx={{ color: "white" }}
+            fullWidth
+            onClick={() => {
+              navigate.push(`/profile/editproduct/${item.id}`);
+            }}
+          >
+            edit Product
+          </Button>
+        ) : (
+          <Button
+            size="small"
+            variant="contained"
+            color="primary"
+            sx={{ color: "white" }}
+            fullWidth
+            onClick={() => {
+              addProduct(item.id);
+            }}
+          >
+            Add to cart
+          </Button>
+        )}
+
         <Button
-          size="small"
-          variant="contained"
-          color="primary"
-          sx={{ color: "white" }}
-          fullWidth
-          onClick={() => {
-            addProduct(item.id);
-          }}
-        >
-          Add to cart
-        </Button>
-        <Button
-          onClick={() => navigate.push(`previewproduct/${item.id}`)}
+          onClick={() => navigate.push(`/previewproduct/${item.id}`)}
           size="small"
           variant="outlined"
           color="primary"

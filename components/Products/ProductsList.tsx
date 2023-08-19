@@ -4,27 +4,14 @@ import { useContext, useState } from "react";
 import Typography from "@mui/material/Typography";
 
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
-import {
-  Box,
-  CircularProgress,
-  Container,
-  Pagination,
-  Stack,
-} from "@mui/material";
-import Card from "@mui/material/Card";
+import { Box, Container, Pagination, Stack } from "@mui/material";
 
-import CardContent from "@mui/material/CardContent";
-
-import Skeleton from "@mui/material/Skeleton";
 import { ProductsContexts } from "../context/productscontext";
 import ProductCard from "./productcard";
 import LaodingProduct from "../Laoding/LaodingProduct";
 import usePagination from "../Pagination/Pagination";
 import { Product } from "@/types/types";
 import SplitButton from "../category/SplitButton";
-/* import SplitButton from "./Product/SplitButton"; */
-/* import ProductCard from "./CardProduct/ProductCard"; */
-/* import LaodingProduct from "./LaodingProduct/LaodingProduct"; */
 
 const ProductsList = () => {
   const { product, result, selectedIndex, searchName, valueSearch } =
@@ -144,7 +131,9 @@ const ProductsList = () => {
           >
             {_DATA.currentData().length > 0 &&
               _DATA.currentData().map((item) => {
-                return <ProductCard item={item} key={item.id} />;
+                if (item.available === true) {
+                  return <ProductCard item={item} key={item.id} />;
+                }
               })}
           </Box>
         </Container>

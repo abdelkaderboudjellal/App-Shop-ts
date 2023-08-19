@@ -13,7 +13,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Facebook, Google, Twitter } from "@mui/icons-material";
+import { Facebook, GitHub, Google, Twitter } from "@mui/icons-material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -21,16 +21,16 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Users } from "@/types/types";
+import { signIn } from "next-auth/react";
 
 const SingUp = () => {
   const theme = useTheme();
   const Navigate = useRouter();
   const MethodSingUp = [
-    { id: 1, Name: "Twitter", Images: <Twitter /> },
+    { id: 1, Name: "Github", Images: <GitHub /> },
     { id: 2, Name: "Google", Images: <Google /> },
-    { id: 3, Name: "Facebook", Images: <Facebook /> },
   ];
-  const url = "https://products-jtax.onrender.com//user?email";
+  const url = "https://products-jtax.onrender.com/user?email";
   const [data, setData] = useState<Users | undefined>();
   const updatedata = () => {
     const data = getValues();
@@ -62,7 +62,12 @@ const SingUp = () => {
   const handleMouseDownPassword = (event: any) => {
     event.preventDefault();
   };
-
+  async function handleGoogleSignin() {
+    signIn("google", { callbackUrl: "http://localhost:3000/" });
+  }
+  async function handleGitHubSignin() {
+    signIn("github", { callbackUrl: "http://localhost:3000/" });
+  }
   return (
     <>
       <Box component="main" sx={{ py: 25 }}>
@@ -84,7 +89,7 @@ const SingUp = () => {
           }}
         >
           {" "}
-          <Stack
+          {/*    <Stack
             direction={{ xs: "column", sm: "row" }}
             justifyContent="space-around"
             alignItems="flex-start"
@@ -113,6 +118,49 @@ const SingUp = () => {
                 </Button>
               );
             })}
+          </Stack> */}
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
+            width="100%"
+            py={2}
+          >
+            <Button
+              variant="outlined"
+              onClick={handleGoogleSignin}
+              sx={{
+                color: "primary",
+                borderColor: "primary",
+                "&:hover": {
+                  borderColor: "primary",
+                  color: "primary",
+                },
+                px: 1,
+                width: { xs: "100%", sm: "100%" },
+              }}
+              startIcon={<Google />}
+            >
+              {"Google"}
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={handleGitHubSignin}
+              sx={{
+                color: "primary",
+                borderColor: "primary",
+                "&:hover": {
+                  borderColor: "primary",
+                  color: "primary",
+                },
+                px: 1,
+                width: { xs: "100%", sm: "100%" },
+              }}
+              startIcon={<GitHub />}
+            >
+              {"Github"}
+            </Button>
           </Stack>
           <Typography component="h1" variant="h5" fontWeight={700} py={2}>
             Sign in
@@ -143,8 +191,8 @@ const SingUp = () => {
             noValidate
             onSubmit={handleSubmit((data) => {
               updatedata();
-              setData(JSON.stringify(data));
-              Navigate.push("/*");
+
+              Navigate.push("/login");
             })}
           >
             <Grid container spacing={2}>
@@ -206,9 +254,12 @@ const SingUp = () => {
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                       message: "Please Enter A Valid Email!",
-
+                    },
+                    validate: {
                       emailAvailable: async (fieldValue) => {
-                        const response = await fetch(`${url}=${fieldValue}`);
+                        const response = await fetch(
+                          `https://products-jtax.onrender.com/user?email=${fieldValue}`
+                        );
                         const data = await response.json();
                         return data.length === 0 || "Email already exists";
                       },

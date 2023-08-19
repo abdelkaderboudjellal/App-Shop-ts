@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { createTheme, responsiveFontSizes } from "@mui/material";
 const darkTheme = createTheme({
   typography: {
@@ -45,6 +45,7 @@ const darkTheme = createTheme({
         },
       },
     },
+
     MuiPaper: {
       styleOverrides: {
         root: {
@@ -102,6 +103,33 @@ const darkTheme = createTheme({
           MuiSliderRail: {
             pending: 0,
           },
+        },
+      },
+    },
+    MuiBottomNavigationAction: {
+      styleOverrides: {
+        root: {
+          wrapper: "none!important",
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          alignItems: "start!important",
+        },
+      },
+    },
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          px: 1,
+          py: 0,
+          m: 0,
+          "&.MuiAlert-outlined": {
+            border: "none!important",
+          },
+          textTransform: "capitalize",
         },
       },
     },

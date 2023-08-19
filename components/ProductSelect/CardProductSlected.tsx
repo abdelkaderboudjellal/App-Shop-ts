@@ -49,7 +49,8 @@ const CardProductSlected = ({
         key={id}
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "space-between",borderRadius:'0px',borderTop:"1px solid #bdbdbd!important",
+      border:'none'
         }}
       >
         <CardContent

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 /* import { Link, useNavigate } from "react-router-dom"; */
 
 import { useForm } from "react-hook-form";
-import Avatar from "@mui/material/Avatar";
+// import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -17,10 +17,11 @@ import { useTheme } from "@mui/material/styles";
 
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Facebook, Google, Twitter } from "@mui/icons-material";
+import { Facebook, GitHub, Google, Twitter } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Users } from "@/types/types";
+import { signIn } from "next-auth/react";
 
 type FormValues = {
   email: string;
@@ -29,18 +30,12 @@ type FormValues = {
 const Login = () => {
   const theme = useTheme();
   const Navigate = useRouter();
-  const MethodSingUp = [
-    { id: 1, Name: "Twitter", Images: <Twitter /> },
-    { id: 2, Name: "Google", Images: <Google /> },
-    { id: 3, Name: "Facebook", Images: <Facebook /> },
-  ];
 
   const url = "https://products-jtax.onrender.com/user";
   const [users, setUsers] = useState<Users[]>([]);
   const [messageAll, setMessageAll] = useState(false);
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [acces, setAcces] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -72,7 +67,12 @@ const Login = () => {
   const handleMouseDownPassword = (event: any) => {
     event.preventDefault();
   };
-
+  async function handleGoogleSignin() {
+    signIn("google", { callbackUrl: "https://products-jtax.onrender.com/" });
+  }
+  async function handleGitHubSignin() {
+    signIn("github", { callbackUrl: "https://products-jtax.onrender.com/" });
+  }
   return (
     <div className="login">
       <Box component="main" sx={{ py: 25 }}>
@@ -97,32 +97,45 @@ const Login = () => {
           <Stack
             direction={{ xs: "column", sm: "row" }}
             justifyContent="space-around"
-            alignItems="start"
+            alignItems="center"
             spacing={2}
             width="100%"
             py={2}
           >
-            {MethodSingUp.map((Item) => {
-              return (
-                <Button
-                  key={Item.id}
-                  variant="outlined"
-                  sx={{
-                    color: "primary",
-                    borderColor: "primary",
-                    "&:hover": {
-                      borderColor: "primary",
-                      color: "primary",
-                    },
-                    px: 1,
-                    width: { xs: "100%", sm: "auto" },
-                  }}
-                  startIcon={Item.Images}
-                >
-                  {Item.Name}
-                </Button>
-              );
-            })}
+            <Button
+              variant="outlined"
+              onClick={handleGoogleSignin}
+              sx={{
+                color: "primary",
+                borderColor: "primary",
+                "&:hover": {
+                  borderColor: "primary",
+                  color: "primary",
+                },
+                px: 1,
+                width: { xs: "100%", sm: "100%" },
+              }}
+              startIcon={<Google />}
+            >
+              {"Google"}
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={handleGitHubSignin}
+              sx={{
+                color: "primary",
+                borderColor: "primary",
+                "&:hover": {
+                  borderColor: "primary",
+                  color: "primary",
+                },
+                px: 1,
+                width: { xs: "100%", sm: "100%" },
+              }}
+              startIcon={<GitHub />}
+            >
+              {"Github"}
+            </Button>
           </Stack>
           <Typography
             component="h1"
@@ -163,11 +176,12 @@ const Login = () => {
                   user.email === data.email &&
                   user.password === data.password
                 ) {
-                  console.log(user.email);
-                  console.log(user.password);
-                  setAcces(!acces);
-                  Navigate.push("/*");
-                } else {
+                  signIn("credentials", {
+                    email: data.email,
+                    password: data.password,
+                    redirect: false,
+                  });
+                  Navigate.push("/");
                 }
               });
               setMessageAll(!messageAll);

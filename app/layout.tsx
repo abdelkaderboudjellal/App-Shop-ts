@@ -9,7 +9,8 @@ import { Footer } from "@/components/Footer";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { BottomAppBar } from "@/components/NavbarBotoon";
 import ScrollBack from "@/components/ScrollBack/ScrollBack";
-import Logo from './../public/images/LogoShop.svg'
+
+import AuthProvider from "@/components/nextauthProvder/AuthProvider";
 const inter = Inter({ subsets: ["latin"] });
 const roboto_mono = Roboto_Mono({
   subsets: ["latin"],
@@ -35,30 +36,32 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider theme={darkThemes}>
-          <ProductsProvider>
-            <Box id="back-to-top-anchor" />
-            <ResponsiveAppBar />
-            {children}
-            <Footer />
-            <BottomAppBar />
-            <ScrollBack {...props}>
-              <Tooltip title="scroll to top">
-                <Fab
-                  size="medium"
-                  aria-label="scroll back to top"
-                  sx={{
-                    bgcolor: "#bdbdbd",
-                    "&:hover": { bgcolor: "#e0e0e0" },
-                    zIndex: 3,
-                  }}
-                >
-                  <KeyboardArrowUpIcon fontSize="large" />
-                </Fab>
-              </Tooltip>
-            </ScrollBack>
-          </ProductsProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider theme={darkThemes}>
+            <ProductsProvider>
+              <Box id="back-to-top-anchor" />
+              <ResponsiveAppBar />
+              {children}
+              <Footer />
+              <BottomAppBar />
+              <ScrollBack {...props}>
+                <Tooltip title="scroll to top">
+                  <Fab
+                    size="medium"
+                    aria-label="scroll back to top"
+                    sx={{
+                      bgcolor: "#bdbdbd",
+                      "&:hover": { bgcolor: "#e0e0e0" },
+                      zIndex: 3,
+                    }}
+                  >
+                    <KeyboardArrowUpIcon fontSize="large" />
+                  </Fab>
+                </Tooltip>
+              </ScrollBack>
+            </ProductsProvider>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

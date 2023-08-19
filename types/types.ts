@@ -10,9 +10,14 @@ export interface Product {
   discountPercentage?: number;
   stock?: number;
   images?: string[];
+  seller?: string;
+  available?: boolean;
 }
 export interface ProductSelect extends Product {
   quantity: number;
+}
+export interface ProductValid extends ProductSelect {
+  valid?: boolean;
 }
 export interface ChipData {
   key: number;
@@ -26,4 +31,7 @@ export interface Users {
   password: string;
   passwordConfirm: string;
   id: number;
+  phone?: number;
+  company?: string;
+  location?: string;
 }

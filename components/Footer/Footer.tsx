@@ -12,20 +12,47 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Box, Button } from "@mui/material";
 import { Call, Email } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 export default function Footer() {
+  const navigate = useRouter();
   const styleIcon = {
-    bgcolor: "#bdbdbd",
-    borderRadius: "50%",
+    bgcolor: "#313131",
+    borderRadius: "9px",
     width: 35,
     height: 35,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    "&:hover": {
+    color: "white",
+    "&:hover ": {
       bgcolor: "white",
+      color: "black",
     },
+    p: 3,
   };
+  const styleButton = {
+    my: 1,
+    "&::before": {
+      content: '" "',
+      position: "absolute",
+      width: "100%",
+      height: "3px",
+      borderRadius: "4px",
+      bgcolor: "white",
+      bottom: "0",
+      left: "0",
+      transformOrigin: "right",
+      transform: "scaleX(0)",
+      transition: "transform .3s ease-in-out",
+    },
+    "&:hover::before": {
+      transformOrigin: "left",
+      transform: "scaleX(1)",
+    },
+    fontSize: "22px",
+  };
+
   return (
     <>
       <Box
@@ -39,9 +66,14 @@ export default function Footer() {
         <Container maxWidth="xl" sx={{ height: "100%", textAlign: "start" }}>
           <Grid container sx={{ justifyItems: "center" }} columns={13}>
             <Grid item xs={12} sm={6} md={4} mx="4px">
-              <Typography variant="h6" color="secondary" gutterBottom>
+              <Button
+                disableRipple
+                color="secondary"
+                sx={styleButton}
+                onClick={() => navigate.push("/")}
+              >
                 Home
-              </Typography>
+              </Button>
               <Typography variant="body2" color="secondary" fontWeight={700}>
                 Products
               </Typography>
@@ -50,9 +82,9 @@ export default function Footer() {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
-              <Typography variant="h6" color="secondary" gutterBottom>
+              <Button disableRipple sx={styleButton} color="secondary">
                 Contact
-              </Typography>
+              </Button>
               <Typography
                 variant="body1"
                 color="secondary"
@@ -106,38 +138,44 @@ export default function Footer() {
               </Box>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
-              <Typography variant="h6" color="secondary" gutterBottom>
+              <Button disableRipple color="secondary" sx={styleButton}>
                 Follow
-              </Typography>
+              </Button>
               <Stack
                 direction="row"
                 alignItems="center"
                 sx={{
                   display: "grid",
-                  gridTemplateColumns: " repeat(4, 1fr)",
+                  gridTemplateColumns: {
+                    xs: "repeat(4, 1fr)",
+                    sm: "repeat(4, 1fr)",
+                    md: " repeat(3, 1fr)",
+                    lg: " repeat(4, 1fr)",
+                  },
                   mx: "auto",
+                  gap: 1,
                 }}
               >
                 <Link
                   sx={styleIcon}
                   href="https://www.instagram.com/abdelkader_boudjellal/"
                 >
-                  <InstagramIcon fontSize="medium" color="primary" />
+                  <InstagramIcon fontSize="medium" />
                 </Link>
                 <Link
                   sx={styleIcon}
                   href="https://www.facebook.com/abdelkaderboudjellal09/"
                 >
-                  <FacebookIcon color="primary" fontSize="medium" />
+                  <FacebookIcon fontSize="medium" />
                 </Link>
                 <Link sx={styleIcon} href="https://twitter.com/BoudjellalAek">
-                  <TwitterIcon fontSize="medium" color="primary" />
+                  <TwitterIcon fontSize="medium" />
                 </Link>
                 <Link
                   sx={styleIcon}
                   href="https://www.linkedin.com/in/abdelkader-boudjellal-29098813b/"
                 >
-                  <LinkedInIcon fontSize="medium" color="primary" />
+                  <LinkedInIcon fontSize="medium" />
                 </Link>
               </Stack>
             </Grid>
