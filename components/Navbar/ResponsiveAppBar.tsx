@@ -11,7 +11,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 
 import Drawer from "../drawer/Drawers";
-import logo from "../../public/images/LogoShop.svg";
 
 import LogoShopView from "../drawer/LogoShopView";
 import ListPages from "./ListPages";
@@ -23,15 +22,7 @@ import SearchNavbar from "./SearchNavbar";
 import { useContext, useState } from "react";
 import { ProductsContexts } from "../context/productscontext";
 import { getSession, useSession } from "next-auth/react";
-import {
-  AccountCircle,
-  Logout,
-  Person,
-  PersonAdd,
-  Settings,
-} from "@mui/icons-material";
-import { Divider, ListItemIcon, Menu, MenuItem } from "@mui/material";
-import stringAvatar from "../avatar/stringAvatar";
+
 import MenuProfile from "../menuProfile/MenuProfile";
 
 const pages = [
