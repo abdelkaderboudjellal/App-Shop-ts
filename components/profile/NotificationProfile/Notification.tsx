@@ -110,11 +110,7 @@ const Notification = (props: Props) => {
         })}
       {notification === "purchase" &&
         purchase.map((item) => {
-          return (
-            <>
-              <SalesProduct key={item.id} products={item.product} />
-            </>
-          );
+          return <SalesProduct key={item.email} products={item.product} />;
         })}
     </div>
   );

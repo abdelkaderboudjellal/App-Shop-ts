@@ -23,7 +23,7 @@ import { useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import LaodingPreviewProduct from "../Laoding/LaodingPreviewProduct";
-import {
+/* import {
   Magnifier,
   GlassMagnifier,
   SideBySideMagnifier,
@@ -33,8 +33,8 @@ import {
   MagnifierContainer,
   MagnifierZoom,
   MagnifierPreview,
-} from "react-image-magnifiers";
-import ReactImageMagnify from "react-image-magnify";
+} from "react-image-magnifiers"; */
+/* import ReactImageMagnify from "react-image-magnify"; */
 import { Product } from "@/types/types";
 import { ProductsContexts } from "@/components/context/productscontext";
 import { useRouter } from "next/navigation";
@@ -128,17 +128,16 @@ const PreviewProduct = ({ param }: Props) => {
                 className="Carousel"
               >
                 {image?.map((img) => (
-                  <>
-                    <GlassMagnifier
+                  <React.Fragment key={img}>
+                    {/*  <GlassMagnifier
                       imageSrc={img}
                       imageAlt="Example"
                       magnifierSize={"60%"}
                       className="GlassMagnifier"
                       largeImageSrc={img}
-                    />
-
+                    /> */}
                     {img.length > 0 && <img key={img} src={img} alt={img} />}
-                  </>
+                  </React.Fragment>
                 ))}
               </Carousel>
             </Box>

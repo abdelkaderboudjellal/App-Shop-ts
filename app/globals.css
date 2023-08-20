@@ -16,7 +16,7 @@ body {
   color: white;
 }
 .Carousel li.slide img {
-  display: none;
+  /*  display: none; */
   height: 500px;
 
   background-repeat: no-repeat;
