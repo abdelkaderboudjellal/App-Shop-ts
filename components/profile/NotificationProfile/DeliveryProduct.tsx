@@ -27,7 +27,7 @@ const DeliveryProduct = ({ products, id, email }: Props) => {
   async function updateResource(valid: boolean, productId: number) {
     const apiUrl = `https://products-jtax.onrender.com/delivery/${id}`;
     const productValid = products.find((product) => product.id === productId);
-    console.log({ ...productValid, valid: valid });
+
     const oldData = products.filter((product) => product.id != productId);
     const data = { ...productValid, valid: valid };
     const requestOptions = {
@@ -50,7 +50,6 @@ const DeliveryProduct = ({ products, id, email }: Props) => {
       }
 
       const responseData = await response.json();
-      console.log(responseData);
     } catch (error) {
       console.error("Error updating resource:", error);
     }

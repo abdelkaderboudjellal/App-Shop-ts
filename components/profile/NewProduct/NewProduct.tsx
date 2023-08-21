@@ -51,17 +51,10 @@ function NewProduct({}: Props) {
 
     setOpen(false);
   };
-  /*   const handlechangeimage = (e: any) => {
-    const url = URL.createObjectURL(e.target.files?.[0]);
-    console.log(e.target.files?.[0]);
 
-    setNewImage(url);
-  }; */
   const url = "https://products-jtax.onrender.com/products";
   const [data, setData] = useState<Product | undefined>();
   const updatedata = () => {
-    console.log(getValues());
-
     fetch(`${url}`, {
       method: "POST",
       body: JSON.stringify(getValues()),

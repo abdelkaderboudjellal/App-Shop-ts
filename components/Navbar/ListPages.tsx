@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import * as React from "react";
 import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
@@ -17,7 +17,7 @@ import { Home, LocalShipping } from "@mui/icons-material";
 
 import { Box, IconButton } from "@mui/material";
 import { ProductsContexts } from "../context/productscontext";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 type Props = {
   anchor: "left" | "right";
 };
@@ -72,7 +72,7 @@ export default function ListPages({ anchor }: Props) {
         </ListItemButton>
         <ListItemButton
           onClick={() => {
-            Navigate.push("/");
+            Navigate.push("/products");
           }}
         >
           <ListItemIcon>

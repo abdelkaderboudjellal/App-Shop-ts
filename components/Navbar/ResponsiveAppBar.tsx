@@ -27,7 +27,7 @@ import MenuProfile from "../menuProfile/MenuProfile";
 
 const pages = [
   { id: 1, Name: "Home", Path: "/" },
-  { id: 2, Name: "Products", Path: "/" },
+  { id: 2, Name: "Products", Path: "/products" },
   { id: 3, Name: "Local Shopping", Path: "/" },
 ];
 

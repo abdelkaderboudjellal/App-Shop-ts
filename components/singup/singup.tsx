@@ -5,6 +5,7 @@ import {
   ButtonGroup,
   Container,
   CssBaseline,
+  Divider,
   Grid,
   IconButton,
   InputAdornment,
@@ -88,37 +89,6 @@ const SingUp = () => {
             minHeight: "650px",
           }}
         >
-          {" "}
-          {/*    <Stack
-            direction={{ xs: "column", sm: "row" }}
-            justifyContent="space-around"
-            alignItems="flex-start"
-            spacing={2}
-            width="100%"
-            py={2}
-          >
-            {MethodSingUp.map((Item) => {
-              return (
-                <Button
-                  key={Item.id}
-                  variant="outlined"
-                  sx={{
-                    color: "primary",
-                    borderColor: "primary",
-                    "&:hover": {
-                      borderColor: "primary",
-                      color: "primary",
-                    },
-                    px: 1,
-                    width: { xs: "100%", sm: "auto" },
-                  }}
-                  startIcon={Item.Images}
-                >
-                  {Item.Name}
-                </Button>
-              );
-            })}
-          </Stack> */}
           <Stack
             direction={{ xs: "column", sm: "row" }}
             justifyContent="space-around"
@@ -162,8 +132,14 @@ const SingUp = () => {
               {"Github"}
             </Button>
           </Stack>
-          <Typography component="h1" variant="h5" fontWeight={700} py={2}>
-            Sign in
+          <Divider sx={{ width: "100%" }}>OR</Divider>
+          <Typography
+            component="h1"
+            variant="subtitle1"
+            fontWeight={700}
+            py={2}
+          >
+            Create New Account
           </Typography>
           <ButtonGroup
             aria-label="outlined button group"

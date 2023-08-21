@@ -12,7 +12,13 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { ButtonGroup, IconButton, InputAdornment, Stack } from "@mui/material";
+import {
+  ButtonGroup,
+  Divider,
+  IconButton,
+  InputAdornment,
+  Stack,
+} from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 import Visibility from "@mui/icons-material/Visibility";
@@ -137,6 +143,7 @@ const Login = () => {
               {"Github"}
             </Button>
           </Stack>
+          <Divider sx={{ width: "100%" }}>OR</Divider>
           <Typography
             component="h1"
             variant="h5"
@@ -179,9 +186,9 @@ const Login = () => {
                   signIn("credentials", {
                     email: data.email,
                     password: data.password,
-                    redirect: false,
+                    redirect: true,
                   });
-                  Navigate.push("/");
+                  /*  Navigate.push("/"); */
                 }
               });
               setMessageAll(!messageAll);
@@ -205,11 +212,6 @@ const Login = () => {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   message: "Please Enter A Valid Email!",
                 },
-                /*  emailAvailable: async (fieldValue) => {
-                  const res = await fetch(`${url}=${fieldValue}`);
-                  const data = await res.json();
-                  return data.length == 0 || "Email already exists";
-                }, */
               })}
             />
             <Typography component="p" sx={{ color: "red", textAlign: "start" }}>

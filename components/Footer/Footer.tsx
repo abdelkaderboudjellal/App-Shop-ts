@@ -5,10 +5,10 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import YouTubeIcon from "@mui/icons-material/YouTube";
+
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import PinterestIcon from "@mui/icons-material/Pinterest";
+
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Box, Button } from "@mui/material";
 import { Call, Email } from "@mui/icons-material";
@@ -18,7 +18,7 @@ export default function Footer() {
   const navigate = useRouter();
   const styleIcon = {
     bgcolor: "#313131",
-    borderRadius: "9px",
+    borderRadius: "50%",
     width: 35,
     height: 35,
     display: "flex",
@@ -50,7 +50,7 @@ export default function Footer() {
       transformOrigin: "left",
       transform: "scaleX(1)",
     },
-    fontSize: "22px",
+    fontSize: "1.2rem",
   };
 
   return (
@@ -74,6 +74,7 @@ export default function Footer() {
               >
                 Home
               </Button>
+
               <Typography variant="body2" color="secondary" fontWeight={700}>
                 Products
               </Typography>

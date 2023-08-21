@@ -15,11 +15,16 @@ import { getSession, useSession } from "next-auth/react";
 
 import Image from "next/image";
 import ProfileBottomNavigation from "./BottomNavigation";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 type Props = {};
 
 const profile = (props: Props) => {
-  const { data: session, status } = useSession({ required: true });
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect("/login?callbackUrl=/profile");
+    },
+  });
   const { user, setUser } = useContext(ProductsContexts);
   const navigate = useRouter();
   const [userDetails, setUserDetails] = useState<Users>();

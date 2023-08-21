@@ -12,9 +12,11 @@ import LaodingProduct from "../Laoding/LaodingProduct";
 import usePagination from "../Pagination/Pagination";
 import { Product } from "@/types/types";
 import SplitButton from "../category/SplitButton";
-
-const ProductsList = () => {
-  const { product, result, selectedIndex, searchName, valueSearch } =
+type Props = {
+  product: Product[];
+};
+const ProductsList = ({ product }: Props) => {
+  const { result, selectedIndex, searchName, valueSearch } =
     useContext(ProductsContexts);
 
   const PER_PAGE = 8;
@@ -47,7 +49,7 @@ const ProductsList = () => {
         spacing={2}
         justifyContent={"space-between"}
         alignItems={"center"}
-        sx={{ my: 8 }}
+        sx={{ my: 4 }}
       >
         <Container>
           <Box

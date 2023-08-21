@@ -46,29 +46,21 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 type Props = {
-  param: string;
+  product: Product;
 };
 
-const PreviewProduct = ({ param }: Props) => {
+const PreviewProduct = ({ product }: Props) => {
   const { addProduct } = useContext(ProductsContexts);
   const navigate = useRouter();
+  const [productPreview, setProductPreview] = useState<Product>(product);
   const [image, setImage] = useState<string[]>();
   const [value, setValue] = useState<number>(0);
-  const [productPreview, setProductPreview] = useState<Product | undefined>();
 
   useEffect(() => {
-    const getData = async () => {
-      const res = await fetch(
-        `https://products-jtax.onrender.com/products/${param}`
-      );
-      const data = await res.json();
-      setProductPreview(data);
-      setImage([data.thumbnail]);
-      if (data.images.length > 0) {
-        setImage([...data.images]);
-      }
-    };
-    getData();
+    setImage([productPreview.thumbnail]);
+    if (productPreview.images && productPreview.images.length > 0) {
+      setImage([...productPreview.images]);
+    }
   }, []);
 
   const handlChange = (event: any) => {
