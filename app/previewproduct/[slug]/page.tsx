@@ -1,15 +1,21 @@
-import { PreviewProduct } from "@/components/Products";
+/* import { PreviewProduct } from "@/components/Products"; */
 import { Product } from "@/types/types";
-import { Typography } from "@mui/material";
+
 import { notFound } from "next/navigation";
 export const metadata = {
   title: "Preview Product page",
 };
-export const dynamicParams = false;
+import dynamic from "next/dynamic";
 
+const PreviewProduct = dynamic(
+  () => import("@/components/Products/PreviewProduct"),
+  {
+    ssr: false,
+  }
+);
 export async function generateStaticParams() {
   const res = await fetch("https://products-jtax.onrender.com/products", {
-    next: { revalidate: 10 },
+    next: { revalidate: 60 },
   });
 
   const products = await res.json();
@@ -25,7 +31,7 @@ async function getProducts(slug: string) {
   const apiUrl = `https://products-jtax.onrender.com/products/${slug}`;
 
   const rep = await fetch(apiUrl, {
-    next: { revalidate: 1 },
+    next: { revalidate: 60 },
   });
   if (!rep.ok) {
     notFound();
@@ -37,11 +43,6 @@ async function getProducts(slug: string) {
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const product = await getProducts(slug);
-  console.log(product);
 
-  return (
-    <>
-      <PreviewProduct product={product} />
-    </>
-  );
+  return <PreviewProduct product={product} />;
 }
