@@ -1,34 +1,11 @@
 "use client";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-
-import LockOpenIcon from "@mui/icons-material/LockOpen";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import { signOut } from "next-auth/react";
-import Drawer from "../drawer/Drawers";
-import logo from "../../public/images/LogoShop.svg";
-
-import LogoShopView from "../drawer/LogoShopView";
-
-import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import ProductSelect from "../ProductSelect/ProductSelect";
-
 import { useContext, useEffect, useState } from "react";
 import { ProductsContexts } from "../context/productscontext";
-import {
-  AccountCircle,
-  Logout,
-  Person,
-  PersonAdd,
-  Settings,
-} from "@mui/icons-material";
+import { Logout } from "@mui/icons-material";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -40,9 +17,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import stringAvatar from "../avatar/stringAvatar";
+
 import { Users } from "@/types/types";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 type Props = {
   user: string;
 };
@@ -99,6 +76,9 @@ const MenuProfile = () => {
       transform: "translateY(-50%) rotate(45deg)",
       zIndex: 0,
     },
+    bgcolor: "rgba(112, 107, 107, 0.548)",
+    backdropFilter: " blur(8px)",
+    color: "white",
   };
   return (
     <>
@@ -109,7 +89,6 @@ const MenuProfile = () => {
         aria-controls={open ? "account-menu" : undefined}
         aria-expanded={open ? "true" : undefined}
       >
-        {/*    <Avatar {...stringAvatar(session?.user?.email)} /> */}
         <Avatar
           alt="Remy Sharp"
           src={
@@ -147,13 +126,11 @@ const MenuProfile = () => {
             }
           />
 
-          {/* <Avatar {...stringAvatar(session?.user?.email )} /> */}
           <Stack>
             <Typography variant="body1" fontWeight="500">
-              {" "}
               {session?.user?.email}
             </Typography>
-            <Typography variant="body1" fontWeight="500" color="text.secondary">
+            <Typography variant="body1" fontWeight="500">
               {session?.user?.name
                 ? session?.user?.name
                 : `${userDetails?.firstName} ${userDetails?.lastName}`}
@@ -163,7 +140,7 @@ const MenuProfile = () => {
         <MenuItem onClick={handleClose}>
           <PersonOutlineOutlinedIcon
             fontSize="medium"
-            color="primary"
+            color="secondary"
             sx={{ mr: 2 }}
           />{" "}
           My account
@@ -176,13 +153,13 @@ const MenuProfile = () => {
           }}
         >
           <ListItemIcon>
-            <PersonAddAltOutlinedIcon fontSize="medium" color="primary" />
+            <PersonAddAltOutlinedIcon fontSize="medium" color="secondary" />
           </ListItemIcon>
           Add another account
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <SettingsOutlinedIcon fontSize="medium" color="primary" />
+            <SettingsOutlinedIcon fontSize="medium" color="secondary" />
           </ListItemIcon>
           Settings
         </MenuItem>
@@ -195,7 +172,7 @@ const MenuProfile = () => {
           }}
         >
           <ListItemIcon>
-            <Logout fontSize="medium" color="primary" />
+            <Logout fontSize="medium" color="secondary" />
           </ListItemIcon>
           Logout
         </MenuItem>

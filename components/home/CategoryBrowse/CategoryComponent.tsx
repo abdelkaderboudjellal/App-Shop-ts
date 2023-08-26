@@ -19,7 +19,7 @@ export default function CategoryComponent({ name, icons }: categories) {
         px: 5,
         py: 5,
         mx: 2,
-        "&:hover": { bgcolor: "#db4444", color: "white" },
+        "&:hover": { bgcolor: "#db4444", color: "white", borderColor: "white" },
         cursor: "pointer",
       }}
       onClick={() => navigate.push("/products")}

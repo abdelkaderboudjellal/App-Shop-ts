@@ -88,11 +88,12 @@ const FlashSales = ({ products }: Props) => {
           justifyContent={"start"}
           spacing={{ xs: 2, md: 10 }}
           pt={2}
+          mb={{ xs: 8, sm: 0 }}
         >
           <Typography variant="h5" fontWeight={600} minWidth={"max-content"}>
             Flash sales
           </Typography>
-          <Stack direction={"row"}>
+          <Stack direction={"row"} sx={{ mb: { xs: 4, md: 0 } }}>
             <Stack mx={1} direction={"row"} spacing={2} alignItems={"center"}>
               <Stack alignItems={"center"}>
                 <Typography variant="subtitle2" fontWeight={600}>

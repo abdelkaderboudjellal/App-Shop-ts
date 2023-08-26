@@ -25,9 +25,14 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const slug = params.slug;
 
-  const product = await fetch(
-    `https://products-jtax.onrender.com/products/${slug}`
-  ).then((res) => res.json());
+  const apiUrl = `https://products-jtax.onrender.com/products/${slug}`;
+  const rep = await fetch(apiUrl, {
+    next: { revalidate: 1 },
+  });
+  if (!rep.ok) {
+    notFound();
+  }
+  const product = await rep.json();
 
   const previousImages = (await parent).openGraph?.images || [];
 
@@ -57,7 +62,6 @@ export async function generateStaticParams() {
 }
 async function getProducts(slug: string) {
   const apiUrl = `https://products-jtax.onrender.com/products/${slug}`;
-
   const rep = await fetch(apiUrl, {
     next: { revalidate: 1 },
   });
