@@ -46,7 +46,7 @@ const profile = (props: Props) => {
   }, [session]);
 
   return (
-    <>
+    <Box sx={{ height: "100%", overflow: "hidden", position: "relative" }}>
       {status === "authenticated" ? (
         <>
           <Box
@@ -157,7 +157,7 @@ const profile = (props: Props) => {
           </Stack>
         </>
       )}
-    </>
+    </Box>
   );
 };
 

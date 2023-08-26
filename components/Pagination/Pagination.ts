@@ -1,7 +1,7 @@
 import { Product } from "@/types/types";
-import React, { useState } from "react";
+import { useState } from "react";
 
-function usePagination(data:Product[], itemsPerPage:number) {
+function usePagination(data: Product[], itemsPerPage: number) {
   const [currentPage, setCurrentPage] = useState(1);
   const maxPage = Math.ceil(data.length / itemsPerPage);
 
@@ -19,7 +19,7 @@ function usePagination(data:Product[], itemsPerPage:number) {
     setCurrentPage((currentPage) => Math.max(currentPage - 1, 1));
   }
 
-  function jump(page:number) {
+  function jump(page: number) {
     const pageNumber = Math.max(1, page);
     setCurrentPage((currentPage) => Math.min(pageNumber, maxPage));
   }

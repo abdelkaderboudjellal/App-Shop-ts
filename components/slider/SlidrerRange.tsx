@@ -4,7 +4,6 @@ import Slider from "@mui/material/Slider";
 import { Stack, TextField, Typography } from "@mui/material";
 import { ProductsContexts } from "../context/productscontext";
 
-
 function valuetext(value: number) {
   return `"$${value}"`;
 }
@@ -12,15 +11,15 @@ function valuetext(value: number) {
 export default function SlidrerRange() {
   const { valueSearch, setValueSearch } = React.useContext(ProductsContexts);
 
-  const handleChange = (event:any, newValue:any) => {
+  const handleChange = (event: any, newValue: any) => {
     setValueSearch(newValue);
   };
-  const handleChangeMax = (event:any) => {
+  const handleChangeMax = (event: any) => {
     if (event.target.value > valueSearch[0] && event.target.value < 2001) {
       setValueSearch([valueSearch[0], (valueSearch[1] = event.target.value)]);
     }
   };
-  const handleChangeMin = (event:any) => {
+  const handleChangeMin = (event: any) => {
     if (event.target.value > 0 && event.target.value < valueSearch[1]) {
       setValueSearch([(valueSearch[0] = event.target.value), valueSearch[1]]);
     }
@@ -67,10 +66,12 @@ export default function SlidrerRange() {
   };
   return (
     <Stack>
-      <Typography sx={{textAlign: "start",
+      <Typography
+        sx={{
+          textAlign: "start",
           fontWeight: "700",
           color: "primary",
-          letterSpacing: ".2rem",
+          letterSpacing: ".1rem",
         }}
       >
         Range Price ($) :
@@ -85,7 +86,7 @@ export default function SlidrerRange() {
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
         />
-        <Stack direction={"row"} justifyContent={"space-around"} >
+        <Stack direction={"row"} justifyContent={"space-around"}>
           <TextField
             size="small"
             type="number"

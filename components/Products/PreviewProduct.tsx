@@ -235,7 +235,6 @@ const PreviewProduct = ({ product }: Props) => {
           </Stack>
         </Container>
       )}
-      {!productPreview && <LaodingPreviewProduct />}
     </>
   );
 };

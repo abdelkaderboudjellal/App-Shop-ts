@@ -29,7 +29,6 @@ const LaodingProduct = () => {
           height={0}
           className={styles.Laodingpage}
           src="/images/loadingImage.svg"
-          /*  srcSet={LaodingImage} */
           alt={"LaodingImage"}
           loading="lazy"
         />

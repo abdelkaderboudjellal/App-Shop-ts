@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 const PageNotfound = () => {
   const navigate = useRouter();
   return (
-    <Container sx={{ my: 8, position: "relative" }}>
+    <Container maxWidth="md" sx={{ my: 8, position: "relative" }}>
       <Image
         width={300}
         height={300}
@@ -18,18 +18,18 @@ const PageNotfound = () => {
       />
       <Button
         variant="contained"
+        size="small"
         sx={{
           position: "absolute",
           top: "85%",
           bottom: "15%",
           left: "50%",
-          height: 28,
-
+          py: 2,
           transform: " translate(-50%, -50%)",
         }}
         onClick={() => navigate.push("/")}
       >
-        Go to home
+        Go to home page
       </Button>
     </Container>
   );

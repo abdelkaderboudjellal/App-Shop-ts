@@ -1,9 +1,9 @@
 export const images = [
   {
     id: 1,
-    title: "Apple iPhone 13 Pro",
+    title: "iPhone 12 Pro Max",
     description:
-      "Apple iPhone 13 Pro Max (128GB, Graphite) [Locked] + Carrier Subscription",
+      "Apple iPhone 12 Pro Max (128GB, Graphite) [Locked] + Carrier Subscription",
     price: "165",
 
     color: "#8197A9",

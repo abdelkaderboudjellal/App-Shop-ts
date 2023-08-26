@@ -6,7 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Product } from "@/types/types";
-import { Stack } from "@mui/material";
+import { Rating, Stack } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { ProductsContexts } from "../context/productscontext";
 
@@ -35,14 +35,17 @@ const ProductCard = ({ item }: Props) => {
           <Typography
             sx={{
               fontWeight: "700",
-
-              height: 50,
             }}
             variant="body1"
             component="p"
           >
             {item.title}
           </Typography>
+          <Rating
+            name="half-rating"
+            defaultValue={item.rating}
+            precision={0.5}
+          />
           <Typography
             sx={{ fontWeight: 500 }}
             variant="subtitle1"

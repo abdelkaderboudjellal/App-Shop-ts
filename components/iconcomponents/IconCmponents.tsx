@@ -18,11 +18,14 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { useSession } from "next-auth/react";
 type Props = {
   countProduct: number;
+  email: string;
 };
 
-const IconComponents = ({ countProduct }: Props) => {
+const IconComponents = ({ countProduct, email }: Props) => {
+  const { data: session, status } = useSession();
   const styleIcon = {
     bgcolor: "white",
     borderRadius: "50%",
@@ -99,13 +102,15 @@ const IconComponents = ({ countProduct }: Props) => {
           </Stack>
         </Stack>
         <Grid item xs={12} sm={6} md={4}>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ borderRadius: "9px", my: 1, width: "100%" }}
-          >
-            Follow
-          </Button>
+          {session?.user?.email != email && (
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{ borderRadius: "9px", my: 1, width: "100%" }}
+            >
+              Follow
+            </Button>
+          )}
           <Stack
             direction="row"
             alignItems="center"

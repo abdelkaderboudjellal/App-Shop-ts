@@ -1,8 +1,7 @@
-import SearchNavbar from "@/components/Navbar/SearchNavbar";
 import ProductCard from "@/components/Products/productcard";
 import IconComponents from "@/components/iconcomponents/IconCmponents";
 import { Product, Users } from "@/types/types";
-import { Facebook } from "@mui/icons-material";
+
 import {
   Avatar,
   Box,
@@ -55,6 +54,7 @@ export default async function Page({ params }: { params: { seller: string } }) {
   const user = data[0];
   const product = await getProduct(user.email);
   const countProduct = product.length;
+
   return (
     <Box>
       <Stack sx={{ position: "relative", width: "100%" }}>
@@ -136,7 +136,7 @@ export default async function Page({ params }: { params: { seller: string } }) {
               Sale and maintenance of computer hardware.
             </Typography>
           </Stack>
-          <IconComponents countProduct={countProduct} />
+          <IconComponents countProduct={countProduct} email={user.email} />
         </Container>
         <Container sx={{ borderRadius: " 25px", boxShadow: 2, p: 2 }}>
           <Box
@@ -198,8 +198,6 @@ export default async function Page({ params }: { params: { seller: string } }) {
           </Box>
         </Container>
       </Stack>
-
-      <Container></Container>
     </Box>
   );
   // ...

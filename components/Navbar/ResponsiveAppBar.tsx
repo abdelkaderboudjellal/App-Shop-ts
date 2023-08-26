@@ -2,7 +2,6 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -15,27 +14,28 @@ import Drawer from "../drawer/Drawers";
 import LogoShopView from "../drawer/LogoShopView";
 import ListPages from "./ListPages";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import ProductSelect from "../ProductSelect/ProductSelect";
 import SearchNavbar from "./SearchNavbar";
 import { useContext, useState } from "react";
 import { ProductsContexts } from "../context/productscontext";
 import { getSession, useSession } from "next-auth/react";
+/* import useRouter from "next/router/useRouter"; */
 
 import MenuProfile from "../menuProfile/MenuProfile";
 
 const pages = [
   { id: 1, Name: "Home", Path: "/" },
   { id: 2, Name: "Products", Path: "/products" },
-  { id: 3, Name: "Local Shopping", Path: "/" },
+  { id: 3, Name: "Local Shopping", Path: "/localshopping" },
 ];
 
 function ResponsiveAppBar() {
   const { user, setUser } = useContext(ProductsContexts);
   const { data: session, status } = useSession();
   const navigate = useRouter();
-
+  const pathname = usePathname();
   const ShowMenu = (
     <Box
       aria-label="account of current user"
@@ -47,40 +47,31 @@ function ResponsiveAppBar() {
     </Box>
   );
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+
   const styleMenu = {
-    overflow: "visible",
-    /* filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))", */
-    mt: 1.5,
-    "& .MuiAvatar-root": {
-      width: 32,
-      height: 32,
-      ml: -0.5,
-      mr: 1,
-    },
-    "&:before": {
-      content: '""',
-      display: "block",
+    m: 2,
+    color: "primary",
+
+    "&::before": {
+      content: '" "',
       position: "absolute",
-      top: 0,
-      right: 14,
-      width: 10,
-      height: 10,
-      bgcolor: "white",
-      transform: "translateY(-50%) rotate(45deg)",
-      zIndex: 0,
+      width: "100%",
+      height: "3px",
+      borderRadius: "4px",
+      bgcolor: "#18272F",
+      bottom: "0",
+      left: "0",
+      transformOrigin: "right",
+      transform: "scaleX(0)",
+      transition: "transform .3s ease-in-out",
     },
+    "&:hover::before": {
+      transformOrigin: "left",
+      transform: "scaleX(1)",
+    },
+    "&.active::before": { transform: "scaleX(1)" },
   };
   return (
     <AppBar
@@ -149,28 +140,8 @@ function ResponsiveAppBar() {
                 component={Link}
                 key={page.id}
                 href={page.Path}
-                sx={{
-                  m: 2,
-                  color: "primary",
-
-                  "&::before": {
-                    content: '" "',
-                    position: "absolute",
-                    width: "100%",
-                    height: "3px",
-                    borderRadius: "4px",
-                    bgcolor: "#18272F",
-                    bottom: "0",
-                    left: "0",
-                    transformOrigin: "right",
-                    transform: "scaleX(0)",
-                    transition: "transform .3s ease-in-out",
-                  },
-                  "&:hover::before": {
-                    transformOrigin: "left",
-                    transform: "scaleX(1)",
-                  },
-                }}
+                className={page.Path === pathname ? "active" : ""}
+                sx={styleMenu}
               >
                 {page.Name}
               </Button>

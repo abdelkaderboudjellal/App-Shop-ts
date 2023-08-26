@@ -26,6 +26,7 @@ import React, {
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { useForm } from "react-hook-form";
+import Image from "next/image";
 
 function MyProduct({ params }: { params: { id: string } }) {
   const id = params.id;
@@ -104,13 +105,32 @@ function MyProduct({ params }: { params: { id: string } }) {
     let content = [];
     for (let i = 0; i < addImage; i++) {
       content.push(
-        <TextField
-          defaultValue={productDetails?.images?.[i]}
-          type="text"
-          variant="outlined"
-          id={`images.${i}`}
-          {...register(`images.${i}`, {})}
-        />
+        <Stack
+          key={productDetails?.images?.[i]}
+          direction={"row"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          spacing={2}
+        >
+          <TextField
+            defaultValue={productDetails?.images?.[i]}
+            type="text"
+            variant="outlined"
+            id={`images.${i}`}
+            {...register(`images.${i}`, {})}
+          />
+          <Image
+            width={100}
+            height={100}
+            src={`${productDetails?.images?.[i]}`}
+            alt={""}
+            style={{
+              borderRadius: "10%",
+              padding: 2,
+              border: "2px solid black",
+            }}
+          />
+        </Stack>
       );
     }
     return content;
@@ -344,18 +364,38 @@ function MyProduct({ params }: { params: { id: string } }) {
         </Stack>
         <Stack spacing={1}>
           <Typography sx={styleTypography}>thumbnail</Typography>
-          <TextField
-            defaultValue={productDetails?.thumbnail}
-            type="text"
-            variant="outlined"
-            id="thumbnail"
-            {...register("thumbnail", {
-              required: {
-                value: true,
-                message: "thumbnail is required",
-              },
-            })}
-          />
+          <Stack
+            spacing={2}
+            direction={"row"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <TextField
+              defaultValue={productDetails?.thumbnail}
+              type="text"
+              variant="outlined"
+              id="thumbnail"
+              {...register("thumbnail", {
+                required: {
+                  value: true,
+                  message: "thumbnail is required",
+                },
+              })}
+            />
+            {productDetails?.thumbnail && (
+              <Image
+                width={100}
+                height={100}
+                src={`${productDetails?.thumbnail}`}
+                alt={""}
+                style={{
+                  borderRadius: "10%",
+                  padding: 2,
+                  border: "2px solid black",
+                }}
+              />
+            )}
+          </Stack>
 
           {errors.thumbnail?.message && (
             <>
@@ -376,15 +416,21 @@ function MyProduct({ params }: { params: { id: string } }) {
           >
             add image
           </Button>
+
           <Stack
             sx={{
               display: "grid",
-              gridTemplateColumns: "repeat(2,1fr)",
+              gridTemplateColumns: "repeat(1,1fr)",
               gap: 1,
             }}
           >
             {TextFieldAddImage(addImage)}
           </Stack>
+          {/*  {productDetails?.images?.map((image) => {
+            return (
+             
+            );
+          })} */}
           <Typography component="p" sx={{ color: "red", textAlign: "start" }}>
             {errors.images?.message}
           </Typography>

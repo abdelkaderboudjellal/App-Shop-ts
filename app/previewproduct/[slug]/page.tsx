@@ -2,9 +2,7 @@
 import { Product } from "@/types/types";
 
 import { notFound } from "next/navigation";
-export const metadata = {
-  title: "Preview Product page",
-};
+
 import dynamic from "next/dynamic";
 
 const PreviewProduct = dynamic(
@@ -13,6 +11,36 @@ const PreviewProduct = dynamic(
     ssr: false,
   }
 );
+
+import { Metadata, ResolvingMetadata } from "next";
+
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const slug = params.slug;
+
+  const product = await fetch(
+    `https://products-jtax.onrender.com/products/${slug}`
+  ).then((res) => res.json());
+
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: product.title,
+    openGraph: {
+      images: [product.thumbnail],
+    },
+    description: product.description,
+    icons: { icon: product.thumbnail },
+  };
+}
+
 export async function generateStaticParams() {
   const res = await fetch("https://products-jtax.onrender.com/products", {
     next: { revalidate: 60 },
@@ -31,7 +59,7 @@ async function getProducts(slug: string) {
   const apiUrl = `https://products-jtax.onrender.com/products/${slug}`;
 
   const rep = await fetch(apiUrl, {
-    next: { revalidate: 60 },
+    next: { revalidate: 1 },
   });
   if (!rep.ok) {
     notFound();
@@ -42,7 +70,7 @@ async function getProducts(slug: string) {
 }
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
-  const product = await getProducts(slug);
+  const product: Product = await getProducts(slug);
 
   return <PreviewProduct product={product} />;
 }

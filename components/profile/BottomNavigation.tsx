@@ -23,7 +23,7 @@ function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`vertical-tabpanel-${index}`}
@@ -31,11 +31,18 @@ function TabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Box>{children}</Box>
+        <Box
+          sx={{
+            p: 3,
+            display: "inline-block",
+            height: "100%",
+            minHeight: "60vh",
+          }}
+        >
+          {children}
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
 
@@ -75,6 +82,7 @@ export default function VerticalTabs() {
         scrollButtons
         allowScrollButtonsMobile
         sx={{
+          position: "relative",
           minWidth: 150,
           borderRight: 1,
           borderColor: "divider",
@@ -84,7 +92,7 @@ export default function VerticalTabs() {
               xs: "row",
             },
           },
-          "& .MuiTabs-scroller": {},
+
           "& .MuiTabs-scrollButtons": {
             display: { xs: "block", md: "none" },
           },
@@ -102,18 +110,20 @@ export default function VerticalTabs() {
           );
         })}
       </Tabs>
-      <TabPanel value={value} index={0}>
-        <Account />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <NewProduct />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <MyProduct />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <Notification />
-      </TabPanel>
+      <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
+        <TabPanel value={value} index={0}>
+          <Account />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <NewProduct />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <MyProduct />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <Notification />
+        </TabPanel>
+      </Box>
     </Box>
   );
 }

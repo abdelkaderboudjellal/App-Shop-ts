@@ -1,16 +1,35 @@
-"use client";
 import { ProductsList } from "@/components/Products";
-import { ProductsContexts } from "@/components/context/productscontext";
-import React, { useContext } from "react";
 
-type Props = {};
+import { Container } from "@mui/material";
+import { Metadata } from "next";
+import dynamic from "next/dynamic";
+import React from "react";
+export const metadata: Metadata = {
+  title: "Products",
+};
+const Filter = dynamic(() => import("@/components/NavbarBotoon/Filter"), {
+  ssr: false,
+});
+async function getProducts() {
+  const apiUrl = `https://products-jtax.onrender.com/products`;
 
-const page = () => {
-  const { product } = useContext(ProductsContexts);
+  const rep = await fetch(apiUrl, {
+    next: { revalidate: 1 },
+  });
+
+  const data = await rep.json();
+  return data;
+}
+const page = async () => {
+  const product = await getProducts();
   return (
-    <div>
+    <Container
+      maxWidth="xl"
+      sx={{ display: "flex", flexDirection: "row", width: "100%" }}
+    >
+      <Filter />
       <ProductsList product={product} />
-    </div>
+    </Container>
   );
 };
 

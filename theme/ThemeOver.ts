@@ -1,26 +1,6 @@
 "use client";
 import { createTheme, responsiveFontSizes } from "@mui/material";
 const darkTheme = createTheme({
-  typography: {
-    allVariants: {
-      fontFamily: [
-        "ui-sans-serif",
-        "system-ui",
-        "-apple-system",
-        "BlinkMacSystemFont",
-        "Segoe UI",
-        "Roboto",
-        "Helvetica Neue",
-        "Arial",
-        "Noto Sans",
-        "sans-serif",
-        "Apple Color Emoji",
-        "Segoe UI Emoji",
-        "Segoe UI Symbol",
-        "Noto Color Emoji",
-      ].join(","),
-    },
-  },
   palette: {
     primary: {
       main: "#000000",

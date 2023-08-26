@@ -8,7 +8,7 @@ import { Box, Container, Pagination, Stack } from "@mui/material";
 
 import { ProductsContexts } from "../context/productscontext";
 import ProductCard from "./productcard";
-import LaodingProduct from "../Laoding/LaodingProduct";
+
 import usePagination from "../Pagination/Pagination";
 import { Product } from "@/types/types";
 import SplitButton from "../category/SplitButton";
@@ -28,7 +28,8 @@ const ProductsList = ({ product }: Props) => {
       (result[selectedIndex] === "All product" &&
         item.title.toLowerCase().includes(searchName.toLowerCase()) &&
         item.price > valueSearch[0] &&
-        item.price < valueSearch[1])
+        item.price < valueSearch[1] &&
+        item.available)
     ) {
       return dataFiltering.push(item);
     }
@@ -49,7 +50,7 @@ const ProductsList = ({ product }: Props) => {
         spacing={2}
         justifyContent={"space-between"}
         alignItems={"center"}
-        sx={{ my: 4 }}
+        sx={{ my: 4, width: "100%" }}
       >
         <Container>
           <Box
@@ -62,26 +63,7 @@ const ProductsList = ({ product }: Props) => {
           >
             <SplitButton options={result} width={200} />
           </Box>
-          {product.length <= 0 ? (
-            <Box
-              sx={{
-                display: "grid",
-                gap: 1,
-                gridTemplateColumns: {
-                  sx: "repeat(1, 1fr)",
-                  sm: "repeat(2, 1fr)",
-                  md: "repeat(3, 1fr)",
-                  lg: "repeat(4, 1fr)",
-                },
-                rowGap: 3,
-                columnGap: 2,
-              }}
-            >
-              {Array.from(new Array(8)).map((item, index) => (
-                <LaodingProduct key={index} />
-              ))}
-            </Box>
-          ) : dataFiltering.length === 0 ? (
+          {dataFiltering.length === 0 ? (
             <Stack
               justifyContent="center"
               alignItems="center"
