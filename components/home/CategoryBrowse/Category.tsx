@@ -9,6 +9,7 @@ import { GiSunglasses } from "react-icons/gi";
 import { BsWatch } from "react-icons/bs";
 import { BsPhone } from "react-icons/bs";
 import CategoryComponent from "./CategoryComponent";
+import TitlePages from "@/element/TitlePages";
 type Props = {};
 
 const categories = [
@@ -29,32 +30,7 @@ const categories = [
 const Category = (props: Props) => {
   return (
     <Container sx={{ my: 2 }}>
-      <Stack alignItems={"center"} spacing={2} direction={"row"}>
-        <Box
-          sx={{
-            width: "15px",
-            height: "40px",
-            bgcolor: "#db4444",
-            borderRadius: "3px",
-          }}
-        />
-        <Typography
-          variant="subtitle1"
-          sx={{ color: "#db4444", fontWeight: 600 }}
-        >
-          category
-        </Typography>
-      </Stack>
-      <Stack
-        direction={{ xs: "column", md: "row" }}
-        justifyContent={"start"}
-        spacing={{ xs: 2, md: 10 }}
-        pt={2}
-      >
-        <Typography variant="h5" fontWeight={600} minWidth={"max-content"}>
-          browse by category
-        </Typography>
-      </Stack>
+      <TitlePages title={"category"} subtitle={"browse by category"} />
 
       <CarouselHome desktop={5} tablet={4} mobile={2}>
         {categories.map((category) => {

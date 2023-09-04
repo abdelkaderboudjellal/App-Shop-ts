@@ -5,6 +5,7 @@ import CarouselHome from "../flashSales/CarouselHome";
 import { Product } from "@/types/types";
 import ProductCard from "@/components/Products/productcard";
 import { useRouter } from "next/navigation";
+import TitlePages from "@/element/TitlePages";
 
 type Props = {
   products: Product[];
@@ -29,37 +30,7 @@ const OurProducts = ({ products }: Props) => {
 
   return (
     <Container sx={{ my: 4 }}>
-      <Stack alignItems={"center"} spacing={2} direction={"row"}>
-        <Box
-          sx={{
-            width: "15px",
-            height: "40px",
-            bgcolor: "#db4444",
-            borderRadius: "3px",
-          }}
-        />
-        <Typography
-          variant="subtitle1"
-          sx={{ color: "#db4444", fontWeight: 600 }}
-        >
-          Our products
-        </Typography>
-      </Stack>
-      <Stack
-        direction={{ xs: "column", md: "row" }}
-        justifyContent={"start"}
-        spacing={{ xs: 2, md: 10 }}
-        pt={2}
-      >
-        <Typography
-          variant="h5"
-          fontWeight={600}
-          minWidth={"max-content"}
-          sx={{ textTransform: "capitalize" }}
-        >
-          Export Our products
-        </Typography>
-      </Stack>
+      <TitlePages title={"Our products"} subtitle={"Export Our products"} />
       <CarouselHome desktop={4} tablet={3} mobile={1}>
         {showProductCarousel(products)}
       </CarouselHome>

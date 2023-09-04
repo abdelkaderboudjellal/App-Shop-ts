@@ -35,6 +35,7 @@ const ProductCard = ({ item }: Props) => {
           <Typography
             sx={{
               fontWeight: "700",
+              height: 40,
             }}
             variant="body1"
             component="p"

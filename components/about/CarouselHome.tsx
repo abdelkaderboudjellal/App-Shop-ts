@@ -11,7 +11,7 @@ const CarouselHome = () => {
   const navigate = useRouter();
   return (
     <>
-      <Container
+      <Box
         sx={{
           color: "white",
           display: { xs: "none", sm: "block" },
@@ -147,7 +147,7 @@ const CarouselHome = () => {
             );
           })}
         </Carousel>
-      </Container>
+      </Box>
     </>
   );
 };
