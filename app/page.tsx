@@ -27,7 +27,7 @@ export default async function Home() {
       <Category />
       <BestSelling products={product} />
       <OurProducts products={product} />
-      <Featured products={product} />
+      <Featured />
     </main>
   );
 }

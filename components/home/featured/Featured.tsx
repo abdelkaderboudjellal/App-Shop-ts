@@ -9,7 +9,7 @@ type Props = {
   products: Product[];
 };
 
-const Featured = ({ products }: Props) => {
+const Featured = () => {
   return (
     <Container maxWidth="lg" sx={{ my: 4 }}>
       <TitlePages title={"Featured"} subtitle={"new arrival"} />

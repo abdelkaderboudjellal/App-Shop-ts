@@ -137,7 +137,11 @@ const MenuProfile = () => {
             </Typography>
           </Stack>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem
+          onClick={() => {
+            navigate.push("/profile");
+          }}
+        >
           <PersonOutlineOutlinedIcon
             fontSize="medium"
             color="secondary"

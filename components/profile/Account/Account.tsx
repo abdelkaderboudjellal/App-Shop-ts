@@ -1,5 +1,5 @@
 import { ProductsContexts } from "@/components/context/productscontext";
-import { Product, Users } from "@/types/types";
+import { Users } from "@/types/types";
 import {
   Box,
   Button,
@@ -12,12 +12,7 @@ import {
 } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, {
-  FormEventHandler,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { CancelOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
@@ -153,7 +148,9 @@ function Account({}: Props) {
         <Typography sx={styleTypography}>First Name</Typography>
         <TextField
           type="text"
-          defaultValue={userDetails?.firstName}
+          defaultValue={
+            userDetails?.firstName || session?.user?.name?.split(" ")[0]
+          }
           id="firstName"
           variant="outlined"
           sx={{ width: { xs: "100%", md: 400 } }}
@@ -177,7 +174,9 @@ function Account({}: Props) {
         <Typography sx={styleTypography}>Last Name</Typography>
         <TextField
           type="text"
-          defaultValue={userDetails?.lastName}
+          defaultValue={
+            userDetails?.lastName || session?.user?.name?.split(" ")[1]
+          }
           id="lastName"
           variant="outlined"
           {...register("lastName", {
@@ -237,7 +236,7 @@ function Account({}: Props) {
           disabled
           id="email"
           variant="outlined"
-          defaultValue={userDetails?.email}
+          defaultValue={userDetails?.email || session?.user?.email}
           {...register("email", {
             required: {
               value: true,
