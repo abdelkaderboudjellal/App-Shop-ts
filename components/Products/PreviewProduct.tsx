@@ -14,7 +14,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
@@ -23,18 +23,7 @@ import { useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import LaodingPreviewProduct from "../Laoding/LaodingPreviewProduct";
-/* import {
-  Magnifier,
-  GlassMagnifier,
-  SideBySideMagnifier,
-  PictureInPictureMagnifier,
-  MOUSE_ACTIVATION,
-  TOUCH_ACTIVATION,
-  MagnifierContainer,
-  MagnifierZoom,
-  MagnifierPreview,
-} from "react-image-magnifiers"; */
-/* import ReactImageMagnify from "react-image-magnify"; */
+
 import { Product } from "@/types/types";
 import { ProductsContexts } from "@/components/context/productscontext";
 import { useRouter } from "next/navigation";
@@ -121,13 +110,6 @@ const PreviewProduct = ({ product }: Props) => {
               >
                 {image?.map((img) => (
                   <React.Fragment key={img}>
-                    {/*  <GlassMagnifier
-                      imageSrc={img}
-                      imageAlt="Example"
-                      magnifierSize={"60%"}
-                      className="GlassMagnifier"
-                      largeImageSrc={img}
-                    /> */}
                     {img.length > 0 && <img key={img} src={img} alt={img} />}
                   </React.Fragment>
                 ))}

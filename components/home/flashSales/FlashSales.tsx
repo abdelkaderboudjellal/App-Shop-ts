@@ -20,7 +20,7 @@ const timer = [
 ];
 const FlashSales = ({ products }: Props) => {
   const [countdownDate, setCountdownDate] = useState(
-    new Date("09/25/2023").getTime()
+    new Date("10/25/2023").getTime()
   );
   const [state, setState] = useState({
     days: 0,

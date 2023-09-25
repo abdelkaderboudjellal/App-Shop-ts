@@ -1,5 +1,4 @@
 import { ProductsList } from "@/components/Products";
-
 import { Container } from "@mui/material";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
