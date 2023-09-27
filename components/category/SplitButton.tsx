@@ -74,6 +74,8 @@ export default function SplitButton({ options, width }: Props) {
         sx={{
           zIndex: 1,
           width: width,
+          overflowY: "scroll",
+          height: "200px",
         }}
         open={open}
         anchorEl={anchorRef.current}

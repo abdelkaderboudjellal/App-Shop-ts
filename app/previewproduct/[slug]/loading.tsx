@@ -1,6 +1,6 @@
 import LaodingPreviewProduct from "@/components/Laoding/LaodingPreviewProduct";
 
-const loading = () => {
+const Loading = () => {
   return (
     <div>
       <LaodingPreviewProduct />
@@ -8,4 +8,4 @@ const loading = () => {
   );
 };
 
-export default loading;
+export default Loading;

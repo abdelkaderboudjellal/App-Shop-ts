@@ -2,7 +2,7 @@
 import LaodingProduct from "@/components/Laoding/LaodingProduct";
 import { Box, Container, Skeleton, Stack } from "@mui/material";
 
-const loading = () => {
+const Loading = () => {
   return (
     <>
       <Stack
@@ -100,4 +100,4 @@ const loading = () => {
   );
 };
 
-export default loading;
+export default Loading;

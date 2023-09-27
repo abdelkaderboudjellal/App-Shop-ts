@@ -13,6 +13,8 @@ const PreviewProduct = dynamic(
 );
 
 import { Metadata, ResolvingMetadata } from "next";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 type Props = {
   params: { slug: string };
@@ -74,6 +76,7 @@ async function getProducts(slug: string) {
 }
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   const product: Product = await getProducts(slug);
 
   return <PreviewProduct product={product} />;
