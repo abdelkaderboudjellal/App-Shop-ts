@@ -37,7 +37,7 @@ const ProductsList = ({ product }: Props) => {
 
   let [page, setPage] = useState(1);
   let count = Math.ceil(dataFiltering.length / PER_PAGE);
-  const _DATA = usePagination(dataFiltering, PER_PAGE);
+  const _DATA = usePagination(dataFiltering, 3);
 
   const handleChange = (e: React.ChangeEvent<unknown>, p: number) => {
     setPage(p);
